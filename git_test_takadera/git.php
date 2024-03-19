@@ -44,6 +44,29 @@
             padding: 10px 20px; /* 送信ボタンの余白を調整 */
             font-size: 18px; /* 送信ボタンの文字サイズを大きめに */
         }
+        .frame{
+    width: 30vh;
+}
+.Profile{
+    display: flex;
+    padding: 30px;
+margin-bottom: 50px;
+}
+.text_container{
+
+
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-left: 5%;
+    padding-bottom: 10%;
+    border-radius: 50px;
+    font-size: 25px;
+    line-height: 50px;
+}
+.Name{
+    text-align: center;
+    font-weight: bold;
+}
     </style>
 
     <script>
@@ -78,11 +101,33 @@
             6歳から14歳までサッカーをしていました。<br>
             趣味は、釣り・スノボ・サーフィン・キャンプ・バイク・車！<br></p>
         </section>
+        <section class="Profile">
+       <div class="img_container">
+           <img class="frame" src="./img/Jidori.jpg" alt="">
+       </div>
+       <div class="text_container">
+           <p class="Name">ジソウスイッチ6期生 サブ講師 宮下 志大</p>
+           どうも！最近第三の目が開眼しそうな宮下です！ <br>
+           趣味は競馬で、好きな馬はエフフォーリア、ドウデュースです！<br>
+           オススメのレースはやっぱり<a href="https://youtu.be/iFHXutgs0MQ?si=pr8YOCs7PQkzqcMF">2021年 天皇賞秋</a>と<a href="https://youtu.be/B51PM7I54Us?si=ABXkAQTtWrAsBWGf">2022年 日本ダービー</a>ですね！<br>
+           ちょっとでも競馬に興味があったら気軽に連絡ください！<br>
+           一緒に競馬場に行きましょう！
+       </div>
+
+   </section> 
     </main>
     <form action="git.php" method="post" onsubmit="return submitForm()">
         <label for="name">名前:</label>
         <input type="text" name="name" id="name" required><br>
     
+        <label for="subject">宛先:</label>
+        <select  name="subject" id="subject">
+            <option value=""></option>
+            <option value="高寺">高寺</option>
+            <option value="宮下">宮下</option>
+        </select>   
+        <br>
+
         <label for="address">住所:</label>
         <input type="text" name="address" id="address" required><br>
     
@@ -103,8 +148,8 @@
 // データベース接続情報
 $servername = "localhost";
 $username = "root";
-$password = "root";
-$database = "git_test";
+$password = "";
+$database = "git-test";
 
 try {
     // PDOオブジェクトを作成してデータベースに接続
@@ -114,22 +159,24 @@ try {
 
     // フォームから送信されたデータの取得
     $name = isset($_POST['name']) ? $_POST['name'] : ''; // フォームで入力された名前
+    $subject = isset($_POST['subject']) ? $_POST['subject'] : ''; 
     $address = isset($_POST['address']) ? $_POST['address'] : ''; // フォームで入力された住所
     $comment = isset($_POST['comment']) ? $_POST['comment'] : ''; // フォームで入力されたコメント
 
     // プリペアドステートメントの作成
-    $stmt = $conn->prepare("INSERT INTO comments (name, address, comment) VALUES (:name, :address, :comment)");
+    $stmt = $conn->prepare("INSERT INTO comments (name, address,subject, comment) VALUES (:name, :address,:subject, :comment)");
 
     // パラメータをバインド
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':address', $address);
+    $stmt->bindParam(':subject', $subject);
     $stmt->bindParam(':comment', $comment);
 
     // ステートメントの実行
     if ($stmt->execute()) {
         // 最後に挿入された行のIDを取得
         $last_inserted_id = $conn->lastInsertId();
-        echo "データが正常に挿入されました。最後に挿入されたID: " . $last_inserted_id;
+        echo "データが正常に挿入されました。";
     } else {
         echo "データの挿入中にエラーが発生しました。";
     }
@@ -140,3 +187,5 @@ try {
 // 接続を閉じる
 $conn = null;
 ?>
+<br>
+<a href="./git2.php">コメント欄へ</a>

@@ -31,8 +31,8 @@
     // データベース接続情報
     $servername = "localhost";
     $username = "root";
-    $password = "root";
-    $database = "git_test";
+    $password = "";
+    $database = "git-test";
 
     try {
         // PDOオブジェクトを作成してデータベースに接続
@@ -41,18 +41,18 @@
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // データを取得するためのクエリ
-        $sql = "SELECT id, name, address, comment FROM comments";
+        $sql = "SELECT id, name, subject, comment FROM comments";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
 
         // 結果があるか確認
         if ($stmt->rowCount() > 0) {
             echo "<table>";
-            echo "<tr><th>ID</th><th>名前</th><th>住所</th><th>コメント</th></tr>";
+            echo "<tr><th>名前</th><th>宛先</th><th>コメント</th></tr>";
             
             // データを出力
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr><td>" . $row["id"]. "</td><td>" . $row["name"]. "</td><td>" . $row["address"]. "</td><td>" . $row["comment"]. "</td></tr>";
+                echo "<tr><td>" . $row["name"]. "</td><td>" . $row["subject"]. "</td><td>" . $row["comment"]. "</td></tr>";
             }
             
             echo "</table>";
