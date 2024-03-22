@@ -103,7 +103,7 @@
 // データベース接続情報
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $database = "git_test";
 
 try {
