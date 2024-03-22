@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- ホスト: localhost:8889
--- 生成日時: 2024 年 3 月 21 日 00:36
--- サーバのバージョン： 5.7.39
--- PHP のバージョン: 7.4.33
+-- ホスト: 127.0.0.1
+-- 生成日時: 2024-03-21 06:49:46
+-- サーバのバージョン： 10.4.32-MariaDB
+-- PHP のバージョン: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,21 +29,22 @@ USE `git_test`;
 -- テーブルの構造 `comments`
 --
 
-DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `address` varchar(50) NOT NULL,
-  `comment` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `comment` varchar(1000) NOT NULL,
+  `subject` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- テーブルのデータのダンプ `comments`
 --
 
-INSERT INTO `comments` (`id`, `name`, `address`, `comment`) VALUES
-(2, '高寺', 'い', 'ああああああああああああああああああ'),
-(8, 'ikeura', 'izuumiootu', 'ああああああああああああ');
+INSERT INTO `comments` (`id`, `name`, `address`, `comment`, `subject`) VALUES
+(2, '高寺', 'い', 'ああああああああああああああああああ', ''),
+(8, 'ikeura', 'izuumiootu', 'ああああああああああああ', ''),
+(38, 'ONPI', 'a', 'zzzz', '宮下');
 
 --
 -- ダンプしたテーブルのインデックス
@@ -63,7 +64,7 @@ ALTER TABLE `comments`
 -- テーブルの AUTO_INCREMENT `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
